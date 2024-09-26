@@ -14,7 +14,7 @@ class Penjualan {
     }
 
     public void tampilkanDetailPenjualan() {
-        System.out.printf("\n%-20s %-10d %-10d %-10.2f\n", namaPelanggan, idBuku, jumlahBuku, totalHarga);
+        System.out.printf("%-20s %-10d %-10d %-10.2f\n", namaPelanggan, idBuku, jumlahBuku, totalHarga);
     }
 
     public double getTotalHarga() {
