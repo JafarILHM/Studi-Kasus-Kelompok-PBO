@@ -1,42 +1,53 @@
 package KelompokStudiKasus;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 class TokoBuku {
-    private List<Buku> daftarBuku = new ArrayList<>();
-    private List<Penjualan> daftarPenjualan = new ArrayList<>();
+    private Buku[] daftarBuku = new Buku[100]; 
+    private Penjualan[] daftarPenjualan = new Penjualan[100]; 
     private double totalPenjualan = 0.0;
     private Scanner scanner = new Scanner(System.in); 
-    
+    private int jumlahBuku = 0; 
+    private int jumlahPenjualan = 0; 
+
     // Menambah buku baru ke daftar
     public void tambahBuku(Buku buku) {
-        daftarBuku.add(buku);
-        System.out.println("[!] Buku baru berhasil ditambahkan.");
+        if (jumlahBuku < daftarBuku.length) {
+            daftarBuku[jumlahBuku++] = buku;
+            System.out.println("[!] Buku baru berhasil ditambahkan.");
+        } else {
+            System.out.println("[!] Kapasitas buku sudah penuh.");
+        }
     }
 
     // Menampilkan daftar buku 
     public void tampilkanDaftarBuku() {
-    	System.out.println("\n===============================================================================");
+        System.out.println("\n===============================================================================");
         System.out.printf("%-10s %-30s %-20s %-10s %-10s\n", "ID", "Judul", "Penulis", "Harga", "Stok");
         System.out.println("===============================================================================");
-        for (Buku buku : daftarBuku) {
+        for (int i = 0; i < jumlahBuku; i++) {
+            Buku buku = daftarBuku[i];
             System.out.printf("%-10d %-30s %-20s %-10.2f %-10d\n", buku.getIdBuku(), buku.getJudul(), buku.getPenulis(), buku.getHarga(), buku.getStok());
         }
     }
 
     // Mencatat penjualan buku
     public void jualBuku(String namaPelanggan, int idBuku, int jumlahBuku) {
-        for (Buku buku : daftarBuku) {
+        for (int i = 0; i < jumlahBuku; i++) {
+            Buku buku = daftarBuku[i];
             if (buku.getIdBuku() == idBuku) {
                 if (buku.getStok() >= jumlahBuku) {
                     buku.setStok(buku.getStok() - jumlahBuku);
                     double totalHarga = buku.getHarga() * jumlahBuku;
                     Penjualan penjualan = new Penjualan(namaPelanggan, idBuku, jumlahBuku, totalHarga);
-                    daftarPenjualan.add(penjualan);
-                    totalPenjualan += totalHarga;
-                    System.out.println("\n[!] Penjualan berhasil dicatat.");
+                    
+                    if (jumlahPenjualan < daftarPenjualan.length) {
+                        daftarPenjualan[jumlahPenjualan++] = penjualan;
+                        totalPenjualan += totalHarga;
+                        System.out.println("\n[!] Penjualan berhasil dicatat.");
+                    } else {
+                        System.out.println("\n[!] Kapasitas penjualan sudah penuh.");
+                    }
                 } else {
                     System.out.println("\n[!] Stok buku tidak mencukupi.");
                 }
@@ -48,11 +59,11 @@ class TokoBuku {
 
     // Menampilkan daftar penjualan 
     public void tampilkanDaftarPenjualan() {
-    	System.out.println("\n===============================================================================");
+        System.out.println("\n===============================================================================");
         System.out.printf("%-20s %-10s %-10s %-10s\n", "Nama Pelanggan", "ID Buku", "Jumlah", "Total Harga");
         System.out.println("===============================================================================");
-        for (Penjualan penjualan : daftarPenjualan) {
-            penjualan.tampilkanDetailPenjualan();
+        for (int i = 0; i < jumlahPenjualan; i++) {
+            daftarPenjualan[i].tampilkanDetailPenjualan();
         }
     }
 
@@ -66,7 +77,7 @@ class TokoBuku {
     public void inputBukuBaru() {
         System.out.print("\nMasukkan ID Buku: ");
         int id = scanner.nextInt();
-        scanner.nextLine();  
+        scanner.nextLine(); 
         System.out.print("Masukkan Judul Buku: ");
         String judul = scanner.nextLine();
         System.out.print("Masukkan Penulis: ");
@@ -76,7 +87,6 @@ class TokoBuku {
         System.out.print("Masukkan Stok: ");
         int stok = scanner.nextInt();
         
-        // Menambahkan buku baru ke daftar
         tambahBuku(new Buku(id, judul, penulis, harga, stok));
     }
 
