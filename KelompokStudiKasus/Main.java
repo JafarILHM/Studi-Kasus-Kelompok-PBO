@@ -7,7 +7,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         TokoBuku tokoBuku = new TokoBuku();
 
-        // Menambahkan beberapa buku diawal
+        // Menambahkan beberapa buku di awal
         tokoBuku.tambahBuku(new Buku(1, "Pemrograman Java", "Jafaruddin Ilham", 100000, 10));
         tokoBuku.tambahBuku(new Buku(2, "Algoritma & Struktur Data", "Raffi Naufal Fahreza", 120000, 5));
 
@@ -29,38 +29,18 @@ public class Main {
 
             switch (pilihan) {
                 case 1:
-                    System.out.print("\nMasukkan ID Buku: ");
-                    int id = scanner.nextInt();
-                    scanner.nextLine();
-                    System.out.print("Masukkan Judul Buku: ");
-                    String judul = scanner.nextLine();
-                    System.out.print("Masukkan Penulis: ");
-                    String penulis = scanner.nextLine();
-                    System.out.print("Masukkan Harga: ");
-                    double harga = scanner.nextDouble();
-                    System.out.print("Masukkan Stok: ");
-                    int stok = scanner.nextInt();
-
-                    tokoBuku.tambahBuku(new Buku(id, judul, penulis, harga, stok));
+                    tokoBuku.inputBukuBaru(); 
                     break;
                 case 2:
                     tokoBuku.tampilkanDaftarBuku();
                     break;
                 case 3:
-                    System.out.print("\nMasukkan Nama Pelanggan: ");
-                    String namaPelanggan = scanner.nextLine();
-                    System.out.print("Masukkan ID Buku yang Dibeli: ");
-                    int idBuku = scanner.nextInt();
-                    System.out.print("Masukkan Jumlah Buku yang Dibeli: ");
-                    int jumlahBuku = scanner.nextInt();
-
-                    tokoBuku.jualBuku(namaPelanggan, idBuku, jumlahBuku);
+                    tokoBuku.prosesPenjualan(); 
                     break;
                 case 4:
                     tokoBuku.tampilkanDaftarPenjualan();
                     break;
                 case 5:
-                	System.out.print("\n");
                     tokoBuku.tampilkanTotalPenjualan();
                     break;
                 case 6:

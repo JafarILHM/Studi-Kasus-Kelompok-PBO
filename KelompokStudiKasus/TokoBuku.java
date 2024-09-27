@@ -2,12 +2,14 @@ package KelompokStudiKasus;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 class TokoBuku {
     private List<Buku> daftarBuku = new ArrayList<>();
     private List<Penjualan> daftarPenjualan = new ArrayList<>();
     private double totalPenjualan = 0.0;
-
+    private Scanner scanner = new Scanner(System.in); 
+    
     // Menambah buku baru ke daftar
     public void tambahBuku(Buku buku) {
         daftarBuku.add(buku);
@@ -56,6 +58,37 @@ class TokoBuku {
 
     // Menampilkan total penjualan 
     public void tampilkanTotalPenjualan() {
+    	System.out.print("\n");
         System.out.println("Total Penjualan: " + totalPenjualan);
+    }
+
+    // Metode untuk menerima input buku baru dari user
+    public void inputBukuBaru() {
+        System.out.print("\nMasukkan ID Buku: ");
+        int id = scanner.nextInt();
+        scanner.nextLine();  
+        System.out.print("Masukkan Judul Buku: ");
+        String judul = scanner.nextLine();
+        System.out.print("Masukkan Penulis: ");
+        String penulis = scanner.nextLine();
+        System.out.print("Masukkan Harga: ");
+        double harga = scanner.nextDouble();
+        System.out.print("Masukkan Stok: ");
+        int stok = scanner.nextInt();
+        
+        // Menambahkan buku baru ke daftar
+        tambahBuku(new Buku(id, judul, penulis, harga, stok));
+    }
+
+    // Metode untuk menerima input penjualan dari pelanggan
+    public void prosesPenjualan() {
+        System.out.print("\nMasukkan Nama Pelanggan: ");
+        String namaPelanggan = scanner.nextLine();
+        System.out.print("Masukkan ID Buku yang Dibeli: ");
+        int idBuku = scanner.nextInt();
+        System.out.print("Masukkan Jumlah Buku yang Dibeli: ");
+        int jumlahBuku = scanner.nextInt();
+
+        jualBuku(namaPelanggan, idBuku, jumlahBuku);
     }
 }
